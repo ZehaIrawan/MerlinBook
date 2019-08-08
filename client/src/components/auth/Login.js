@@ -16,7 +16,7 @@ const Login = () => {
   const onSubmit = async e => {
     e.preventDefault();
 
-    console.log('Success');
+    console.log(formData);
   };
 
   return (
