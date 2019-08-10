@@ -11,7 +11,7 @@ import Dashboard from './Dashboard'
 import Alert from '../components/layout/Alert';
 
 
-function App() {
+const App =() =>{
   return (
     <Provider store={storeCloud}>
         <Router>

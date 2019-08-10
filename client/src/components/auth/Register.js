@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar';
 import { setAlert } from '../../redux/actions/alert';
+import { register } from '../../redux/actions/auth';
 
-const Register = props => {
+
+const Register = ({ setAlert, register }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,11 +22,19 @@ const Register = props => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-      props.setAlert('Passwords do not match', 'danger');
+      setAlert('Passwords do not match', 'danger');
     } else {
-      console.log(formData);
+      register({
+        name,
+        email,
+        password,
+      });
     }
   };
+
+  // if (isAuthenticated) {
+  //   return <Redirect to='/dashboard' />;
+  // }
 
   return (
     <Fragment>
@@ -87,5 +97,5 @@ const Register = props => {
 
 export default connect(
   null,
-  { setAlert },
+  { setAlert,register },
 )(Register);
