@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { createBook } from '../redux/actions/index';
 import { categories } from '../data';
+import { createBook } from '../redux/actions/index';
 
 const BookForm = ({ addBook }) => {
   const [title, setTitle] = useState('');

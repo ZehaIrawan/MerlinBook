@@ -1,10 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-const Book = props => {
-  const {
-    id, title, author, percentage, category, removeBook,
-  } = props;
+const Book = ({ id, title, author, percentage, category, deleteBook }) => {
   const percentageToDegrees = Math.round(percentage * 1.8);
   const percentageStyle = {
     transform: `rotate(${percentageToDegrees}deg)`,
@@ -24,13 +21,18 @@ const Book = props => {
             className="action-button"
             type="button"
             onClick={() => {
-              removeBook(id);
+              deleteBook(id);
             }}
           >
             Remove
           </button>
           {' | '}
-          <button className="action-button no-click" type="button" href="#" disabled>
+          <button
+            className="action-button no-click"
+            type="button"
+            href="#"
+            disabled
+          >
             Edit
           </button>
         </div>
@@ -39,18 +41,13 @@ const Book = props => {
         <div className="circle">
           <div className="circle-wrap">
             <div className="circle">
-              <div
-                className="mask"
-                style={percentageStyle}
-              >
+              <div className="mask" style={percentageStyle}>
                 <div
                   className={percentage === '0' ? '' : 'fill'}
                   style={percentageStyle}
                 />
               </div>
-              <div
-                className="mask half"
-              >
+              <div className="mask half">
                 <div
                   className={percentage === '0' ? '' : 'fill'}
                   style={percentageStyle}
@@ -79,8 +76,6 @@ Book.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  removeBook: PropTypes.func.isRequired,
-  percentage: PropTypes.string.isRequired,
 };
 
 export default Book;

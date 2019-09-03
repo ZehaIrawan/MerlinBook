@@ -1,47 +1,60 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { removeBook, changeFilter } from '../redux/actions/index';
-import CategoryFilter from './CategoryFilter';
+import Modal from '../components/modals/Modal';
+import useModal from '../components/modals/useModal';
+import { deleteBook, getBooks } from '../redux/actions/book';
 import Book from './Book';
 
 const mapStateToProps = state => ({
-  books: state.books.filter(book =>
-    state.filter === '' ? true : book.category === state.filter,
-  ),
+  books: state.books,
+  loading: state.loading,
 });
 
-const BookList = ({ books, deleteBook, handleFilterChange }) => (
-  <div>
-    <CategoryFilter handleFilterChange={handleFilterChange} />
-    <table className="books-table">
-      <tbody>
-        {books.map(book => (
-          <Book
-            key={book.id}
-            id={book.id}
-            title={book.title}
-            author={book.author}
-            category={book.category}
-            percentage={book.percentage}
-            removeBook={deleteBook}
-          />
-        ))}
-      </tbody>
-    </table>
-  </div>
-);
+const BookList = ({ getBooks, books, loading, deleteBook }) => {
+  useEffect(() => {
+    getBooks();
+  }, [getBooks]);
 
-BookList.propTypes = {
-  books: PropTypes.arrayOf(PropTypes.object).isRequired,
-  deleteBook: PropTypes.func.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
+  // console.log(books);
+  const { isShowing, toggle } = useModal();
+
+  if (loading) {
+    return <p>Loading ...</p>;
+  }
+
+  return (
+    <div>
+      <button className="blue-button form-button bold" onClick={toggle}>
+        Add Book
+      </button>
+      <Modal isShowing={isShowing} hide={toggle} />
+      <table className="books-table">
+        <tbody>
+          {books.books.map(book => (
+            <Book
+              key={book._id}
+              id={book._id}
+              title={book.title}
+              author={book.author}
+              category={book.category}
+              percentage={(book.currentChapter / book.totalChapter) * 100}
+              deleteBook={deleteBook}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
+
+// BookList.propTypes = {
+//   books: PropTypes.arrayOf(PropTypes.object).isRequired,
+// };
 
 export default connect(
   mapStateToProps,
   {
-    deleteBook: removeBook,
-    handleFilterChange: changeFilter,
+    getBooks,
+    deleteBook,
   },
 )(BookList);

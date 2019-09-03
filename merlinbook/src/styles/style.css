@@ -422,9 +422,6 @@ img {
   margin-bottom: 3rem;
 }
 
-
-
-
 .btn {
   display: inline-block;
   background: var(--light-color);
@@ -595,4 +592,24 @@ button {
 
 .table th {
   background: var(--light-color);
+}
+
+/* Modal*/
+.modal {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  border: 1px solid grey;
+  background: plum;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close-button {
+  margin-left: 350px;
+  height: 40px;
+  width: 40px;
 }

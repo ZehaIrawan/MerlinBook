@@ -1,12 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Navbar from '../Navbar';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../redux/actions/alert';
 import { register } from '../../redux/actions/auth';
+import Navbar from '../Navbar';
 
-
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,9 +32,9 @@ const Register = ({ setAlert, register }) => {
     }
   };
 
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard' />;
-  // }
+  if (isAuthenticated) {
+    return <Redirect to="/books" />;
+  }
 
   return (
     <Fragment>
@@ -95,7 +95,17 @@ const Register = ({ setAlert, register }) => {
   );
 };
 
+Register.propTypes = {
+  login: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
 export default connect(
-  null,
-  { setAlert,register },
+  mapStateToProps,
+  { setAlert, register },
 )(Register);

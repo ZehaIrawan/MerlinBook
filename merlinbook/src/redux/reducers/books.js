@@ -1,9 +1,16 @@
-import { initialState } from '../../data';
+import { DELETE_BOOK } from '../actions/types';
+
+const initialState = {
+  books: [],
+  loading: true,
+  error: {},
+};
 
 const uuidv1 = require('uuid/v1');
 
 const books = (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case 'CREATE_BOOK': {
       const book = {
         id: uuidv1(),
@@ -14,9 +21,14 @@ const books = (state = initialState, action) => {
       };
       return [...state, book];
     }
-    case 'REMOVE_BOOK': {
-      return state.filter(({ id }) => action.id !== id);
-    }
+    case DELETE_BOOK:
+      return {
+        ...state,
+        books: state.books.filter(book => book._id !== payload),
+        loading: false,
+      };
+    case 'GET_BOOKS':
+      return { ...state, books: payload, loading: false };
     default:
       return state;
   }
