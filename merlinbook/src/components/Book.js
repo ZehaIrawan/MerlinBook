@@ -31,7 +31,7 @@ const Book = ({ id, title, author, percentage, category, deleteBook }) => {
             className="action-button no-click"
             type="button"
             href="#"
-            disabled
+            // disabled
           >
             Edit
           </button>

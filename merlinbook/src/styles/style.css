@@ -604,7 +604,7 @@ button {
   transform: translate(-50%, -50%);
   z-index: 101;
   border: 1px solid grey;
-  background: plum;
+  background: #fff;
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
 }
 

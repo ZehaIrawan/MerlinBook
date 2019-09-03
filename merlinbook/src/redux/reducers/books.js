@@ -1,4 +1,4 @@
-import { DELETE_BOOK } from '../actions/types';
+import { ADD_BOOK, DELETE_BOOK } from '../actions/types';
 
 const initialState = {
   books: [],
@@ -25,6 +25,12 @@ const books = (state = initialState, action) => {
       return {
         ...state,
         books: state.books.filter(book => book._id !== payload),
+        loading: false,
+      };
+    case ADD_BOOK:
+      return {
+        ...state,
+        books: [payload, ...state.books],
         loading: false,
       };
     case 'GET_BOOKS':

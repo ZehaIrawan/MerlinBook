@@ -46,8 +46,8 @@ export const deleteBook = id => async dispatch => {
   }
 };
 
-// Add post
-export const addPost = formData => async dispatch => {
+// Add Book
+export const addBook = formData => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
