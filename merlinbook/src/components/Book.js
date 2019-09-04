@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import EditModal from '../components/modals/EditModal';
 import useEditModal from '../components/modals/useEditModal';
-import { updateBook } from '../redux/actions/book';
+import { editBook } from '../redux/actions/book';
 
 const Book = ({
   id,
@@ -14,7 +14,7 @@ const Book = ({
   deleteBook,
   totalChapter,
   currentChapter,
-  updateBook,
+  editBook,
 }) => {
   const percentageToDegrees = Math.round(percentage * 1.8);
   const percentageStyle = {
@@ -32,8 +32,8 @@ const Book = ({
     currentChapter,
   };
 
-  const editBook = () => {
-    updateBook(formData);
+  const editThisBook = () => {
+    editBook(formData);
     toggleEdit();
   };
 
@@ -60,7 +60,11 @@ const Book = ({
               Remove
             </button>
             {' | '}
-            <button className="action-button " type="button" onClick={editBook}>
+            <button
+              className="action-button "
+              type="button"
+              onClick={editThisBook}
+            >
               Edit
             </button>
           </div>
@@ -112,10 +116,10 @@ Book.propTypes = {
 };
 
 Book.propTypes = {
-  updateBook: PropTypes.func.isRequired,
+  editBook: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { updateBook },
+  { editBook },
 )(Book);

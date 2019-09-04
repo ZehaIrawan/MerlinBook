@@ -4,6 +4,7 @@ import {
   ADD_BOOK,
   BOOK_ERROR,
   DELETE_BOOK,
+  EDIT_BOOK,
   GET_BOOKS,
   UPDATE_BOOK,
 } from './types';
@@ -69,13 +70,39 @@ export const addBook = formData => async dispatch => {
   }
 };
 
-// Update Book
-export const updateBook = formData => async dispatch => {
+// Edit Book
+export const editBook = formData => async dispatch => {
   try {
     dispatch({
-      type: UPDATE_BOOK,
+      type: EDIT_BOOK,
       payload: formData,
     });
+  } catch (err) {
+    dispatch({
+      type: BOOK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Update Book
+
+export const updateBook = (id, formData) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.put(`/api/books/${id}`, formData, config);
+
+    dispatch({
+      type: UPDATE_BOOK,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Book Updated', 'success'));
   } catch (err) {
     dispatch({
       type: BOOK_ERROR,

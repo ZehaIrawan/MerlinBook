@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateBook } from '../redux/actions/book';
 
-const EditBookForm = ({ book }) => {
+const EditBookForm = ({ book, updateBook }) => {
   const [formData, setFormData] = useState({
     title: book.title,
     category: book.category,
@@ -12,27 +12,15 @@ const EditBookForm = ({ book }) => {
     currentChapter: book.currentChapter,
   });
 
-  const {
-    title,
-    category,
-    author,
-    totalChapter,
-    currentChapter,
-    id,
-  } = formData;
+  const { title, category, author, totalChapter, currentChapter } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // const handleInputChange = e => setTitle(e.target.value);
-  // const handleSelectChange = e => setCategory(e.target.value);
-
   const handleSubmit = e => {
     e.preventDefault();
 
-    // updateBook(formData);
-    // setTitle('');
-    // setCategory('Action');
+    updateBook(book.id,formData);
   };
 
   return (
@@ -95,7 +83,7 @@ const EditBookForm = ({ book }) => {
       </label>
 
       <button className="blue-button form-button bold" type="submit">
-        Add Book
+        Submit
       </button>
     </form>
   );

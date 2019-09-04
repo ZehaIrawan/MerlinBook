@@ -5,8 +5,6 @@ import useModal from '../components/modals/useModal';
 import { deleteBook, getBooks } from '../redux/actions/book';
 import Book from './Book';
 
-
-
 const BookList = ({ getBooks, books, loading, deleteBook }) => {
   useEffect(() => {
     getBooks();
