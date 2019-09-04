@@ -2,12 +2,11 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import {
   ADD_BOOK,
-  ADD_COMMENT,
   BOOK_ERROR,
   DELETE_BOOK,
-  GET_BOOK,
+  EDIT_BOOK,
   GET_BOOKS,
-  REMOVE_COMMENT,
+  UPDATE_BOOK,
 } from './types';
 
 // Get books
@@ -27,7 +26,7 @@ export const getBooks = () => async dispatch => {
   }
 };
 
-// Delete post
+// Delete book
 export const deleteBook = id => async dispatch => {
   try {
     await axios.delete(`/api/books/${id}`);
@@ -46,8 +45,8 @@ export const deleteBook = id => async dispatch => {
   }
 };
 
-// Add post
-export const addPost = formData => async dispatch => {
+// Add Book
+export const addBook = formData => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -62,7 +61,7 @@ export const addPost = formData => async dispatch => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Post Created', 'success'));
+    dispatch(setAlert('Book Created', 'success'));
   } catch (err) {
     dispatch({
       type: BOOK_ERROR,
@@ -71,14 +70,12 @@ export const addPost = formData => async dispatch => {
   }
 };
 
-// Get post
-export const getPost = id => async dispatch => {
+// Edit Book
+export const editBook = formData => async dispatch => {
   try {
-    const res = await axios.get(`/api/books/${id}`);
-
     dispatch({
-      type: GET_BOOK,
-      payload: res.data,
+      type: EDIT_BOOK,
+      payload: formData,
     });
   } catch (err) {
     dispatch({
@@ -88,8 +85,9 @@ export const getPost = id => async dispatch => {
   }
 };
 
-// Add comment
-export const addComment = (postId, formData) => async dispatch => {
+// Update Book
+
+export const updateBook = (id, formData) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -97,37 +95,14 @@ export const addComment = (postId, formData) => async dispatch => {
   };
 
   try {
-    const res = await axios.post(
-      `/api/books/comment/${postId}`,
-      formData,
-      config,
-    );
+    const res = await axios.put(`/api/books/${id}`, formData, config);
 
     dispatch({
-      type: ADD_COMMENT,
+      type: UPDATE_BOOK,
       payload: res.data,
     });
 
-    dispatch(setAlert('Comment Added', 'success'));
-  } catch (err) {
-    dispatch({
-      type: BOOK_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
-
-// Delete comment
-export const deleteComment = (postId, commentId) => async dispatch => {
-  try {
-    await axios.delete(`/api/books/comment/${postId}/${commentId}`);
-
-    dispatch({
-      type: REMOVE_COMMENT,
-      payload: commentId,
-    });
-
-    dispatch(setAlert('Comment Removed', 'success'));
+    dispatch(setAlert('Book Updated', 'success'));
   } catch (err) {
     dispatch({
       type: BOOK_ERROR,

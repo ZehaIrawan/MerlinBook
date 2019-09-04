@@ -5,11 +5,6 @@ import useModal from '../components/modals/useModal';
 import { deleteBook, getBooks } from '../redux/actions/book';
 import Book from './Book';
 
-const mapStateToProps = state => ({
-  books: state.books,
-  loading: state.loading,
-});
-
 const BookList = ({ getBooks, books, loading, deleteBook }) => {
   useEffect(() => {
     getBooks();
@@ -28,6 +23,7 @@ const BookList = ({ getBooks, books, loading, deleteBook }) => {
         Add Book
       </button>
       <Modal isShowing={isShowing} hide={toggle} />
+
       <table className="books-table">
         <tbody>
           {books.books.map(book => (
@@ -37,7 +33,11 @@ const BookList = ({ getBooks, books, loading, deleteBook }) => {
               title={book.title}
               author={book.author}
               category={book.category}
-              percentage={(book.currentChapter / book.totalChapter) * 100}
+              totalChapter={book.totalChapter}
+              currentChapter={book.currentChapter}
+              percentage={
+                (book.currentChapter / book.totalChapter).toFixed(1) * 100
+              }
               deleteBook={deleteBook}
             />
           ))}
@@ -50,6 +50,11 @@ const BookList = ({ getBooks, books, loading, deleteBook }) => {
 // BookList.propTypes = {
 //   books: PropTypes.arrayOf(PropTypes.object).isRequired,
 // };
+
+const mapStateToProps = state => ({
+  books: state.books,
+  loading: state.loading,
+});
 
 export default connect(
   mapStateToProps,

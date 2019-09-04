@@ -1,27 +1,26 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addBook } from '../redux/actions/book';
+import { updateBook } from '../redux/actions/book';
 
-const BookForm = ({ addBook }) => {
+const EditBookForm = ({ book, updateBook }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    category: '',
-    author: '',
-    totalChapter: '',
-    currentChapter: '',
+    title: book.title,
+    category: book.category,
+    author: book.author,
+    totalChapter: book.totalChapter,
+    currentChapter: book.currentChapter,
   });
 
   const { title, category, author, totalChapter, currentChapter } = formData;
 
-  const onChange = e => {
+  const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    addBook(formData);
+    updateBook(book.id,formData);
   };
 
   return (
@@ -84,17 +83,21 @@ const BookForm = ({ addBook }) => {
       </label>
 
       <button className="blue-button form-button bold" type="submit">
-        Add Book
+        Submit
       </button>
     </form>
   );
 };
 
-BookForm.propTypes = {
-  addBook: PropTypes.func.isRequired,
+EditBookForm.propTypes = {
+  updateBook: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  book: state.books.book[0],
+});
+
 export default connect(
-  null,
-  { addBook },
-)(BookForm);
+  mapStateToProps,
+  { updateBook },
+)(EditBookForm);

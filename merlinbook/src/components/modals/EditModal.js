@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BookForm from '../BookForm';
+import EditBookForm from '../EditBookForm';
 
-const Modal = ({ isShowing, hide }) =>
-  isShowing
+const EditModal = ({ isEditing, hideEdit }) =>
+  isEditing
     ? ReactDOM.createPortal(
         <React.Fragment>
           <div className="modal-overlay" />
@@ -21,12 +21,12 @@ const Modal = ({ isShowing, hide }) =>
                   className="modal-close-button"
                   data-dismiss="modal"
                   aria-label="Close"
-                  onClick={hide}
+                  onClick={hideEdit}
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <BookForm></BookForm>,
+              <EditBookForm></EditBookForm>
             </div>
           </div>
         </React.Fragment>,
@@ -34,4 +34,4 @@ const Modal = ({ isShowing, hide }) =>
       )
     : null;
 
-export default Modal;
+export default EditModal;
