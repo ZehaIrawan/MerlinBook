@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import BookForm from '../BookForm';
 
 const Modal = ({ isShowing, hide }) =>
-
   isShowing
     ? ReactDOM.createPortal(
         <React.Fragment>

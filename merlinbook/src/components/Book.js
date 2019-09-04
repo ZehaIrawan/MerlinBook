@@ -1,73 +1,106 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import EditModal from '../components/modals/EditModal';
+import useEditModal from '../components/modals/useEditModal';
+import { updateBook } from '../redux/actions/book';
 
-const Book = ({ id, title, author, percentage, category, deleteBook }) => {
+const Book = ({
+  id,
+  title,
+  author,
+  percentage,
+  category,
+  deleteBook,
+  totalChapter,
+  currentChapter,
+  updateBook,
+}) => {
   const percentageToDegrees = Math.round(percentage * 1.8);
   const percentageStyle = {
     transform: `rotate(${percentageToDegrees}deg)`,
   };
+
+  const { isEditing, toggleEdit } = useEditModal();
+
+  const formData = {
+    id,
+    title,
+    author,
+    category,
+    totalChapter,
+    currentChapter,
+  };
+
+  const editBook = () => {
+    updateBook(formData);
+    toggleEdit();
+  };
+
   return (
-    <tr>
-      <td className="details-container">
-        <h4 className="book-category">{category}</h4>
-        <h2 className="book-title">{title}</h2>
-        <p className="book-author">{author}</p>
-        <div className="action-buttons">
-          <button type="button" className="action-button no-click" disabled>
-            Comments
-          </button>
-          {' | '}
-          <button
-            className="action-button"
-            type="button"
-            onClick={() => {
-              deleteBook(id);
-            }}
-          >
-            Remove
-          </button>
-          {' | '}
-          <button
-            className="action-button no-click"
-            type="button"
-            href="#"
-            // disabled
-          >
-            Edit
-          </button>
-        </div>
-      </td>
-      <td className="progress-container">
-        <div className="circle">
-          <div className="circle-wrap">
-            <div className="circle">
-              <div className="mask" style={percentageStyle}>
-                <div
-                  className={percentage === '0' ? '' : 'fill'}
-                  style={percentageStyle}
-                />
+    <Fragment>
+      <EditModal isEditing={isEditing} hideEdit={toggleEdit} />
+      <tr>
+        <td className="details-container">
+          <h4 className="book-category">{category}</h4>
+          <h2 className="book-title">{title}</h2>
+          <p className="book-author">{author}</p>
+          <div className="action-buttons">
+            <button type="button" className="action-button no-click" disabled>
+              Comments
+            </button>
+            {' | '}
+            <button
+              className="action-button"
+              type="button"
+              onClick={() => {
+                deleteBook(id);
+              }}
+            >
+              Remove
+            </button>
+            {' | '}
+            <button className="action-button " type="button" onClick={editBook}>
+              Edit
+            </button>
+          </div>
+        </td>
+        <td className="progress-container">
+          <div className="circle">
+            <div className="circle-wrap">
+              <div className="circle">
+                <div className="mask" style={percentageStyle}>
+                  <div
+                    className={percentage === '0' ? '' : 'fill'}
+                    style={percentageStyle}
+                  />
+                </div>
+                <div className="mask half">
+                  <div
+                    className={percentage === '0' ? '' : 'fill'}
+                    style={percentageStyle}
+                  />
+                </div>
+                <div className="inside-circle" />
               </div>
-              <div className="mask half">
-                <div
-                  className={percentage === '0' ? '' : 'fill'}
-                  style={percentageStyle}
-                />
-              </div>
-              <div className="inside-circle" />
             </div>
           </div>
-        </div>
-        <div className="percentage-completed">
-          <h1>{`${percentage}%`}</h1>
-          <p>Completed</p>
-        </div>
-      </td>
-      <td className="update-progress-container">
-        <button className="blue-button update-button light" type="button">
-          Update Progress
-        </button>
-      </td>
-    </tr>
+          <div className="percentage-completed">
+            <h1>{`${percentage}%`}</h1>
+            <p>Completed</p>
+          </div>
+        </td>
+        <td className="update-progress-container">
+          <button
+            className="blue-button update-button light"
+            type="button"
+            onClick={editBook}
+          >
+            Update Progress
+          </button>
+        </td>
+      </tr>
+    </Fragment>
   );
 };
 
@@ -78,4 +111,11 @@ Book.propTypes = {
   category: PropTypes.string.isRequired,
 };
 
-export default Book;
+Book.propTypes = {
+  updateBook: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  { updateBook },
+)(Book);

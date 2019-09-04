@@ -10,6 +10,10 @@ export const categories = [
   'Sci-Fi',
 ];
 
+
+
+
+
 export const initialState = [
   {
     id: uuidv1(),

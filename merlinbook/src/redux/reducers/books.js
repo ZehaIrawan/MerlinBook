@@ -1,7 +1,8 @@
-import { ADD_BOOK, DELETE_BOOK } from '../actions/types';
+import { ADD_BOOK, DELETE_BOOK, UPDATE_BOOK } from '../actions/types';
 
 const initialState = {
   books: [],
+  book: [],
   loading: true,
   error: {},
 };
@@ -31,6 +32,12 @@ const books = (state = initialState, action) => {
       return {
         ...state,
         books: [payload, ...state.books],
+        loading: false,
+      };
+    case UPDATE_BOOK:
+      return {
+        ...state,
+        book: [payload],
         loading: false,
       };
     case 'GET_BOOKS':
