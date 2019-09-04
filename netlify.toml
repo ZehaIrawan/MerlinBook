@@ -2,4 +2,3 @@
 base = "merlinbook/"
 publish = "merlinbook/build/"
 command = "npm run build"
-redirect = "/api/*  https://api.example.com/:splat  200"
