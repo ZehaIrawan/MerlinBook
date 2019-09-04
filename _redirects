@@ -1,2 +1,1 @@
-/api/* https://afternoon-island-76163.herokuapp.com/api/:splat  200
-/*  /index.html  200
+/* https://server-subdomain.givingwhatwecan.org/:splat 200
