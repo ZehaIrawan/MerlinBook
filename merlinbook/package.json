@@ -39,5 +39,6 @@
   "devDependencies": {
     "concurrently": "^4.1.1",
     "nodemon": "^1.19.1"
-  }
+  },
+  "proxy": "https://afternoon-island-76163.herokuapp.com/"
 }

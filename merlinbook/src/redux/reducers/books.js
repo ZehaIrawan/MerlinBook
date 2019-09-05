@@ -37,25 +37,26 @@ const books = (state = initialState, action) => {
     case GET_BOOKS:
       return { ...state, books: payload, loading: false };
     case UPDATE_BOOK:
-      return {
-        ...state,
-        books: [
-          state.books.map((item, index) => {
-            // Find the item with the matching id
-            if (item.id === payload.id) {
-              // Return a new object
-              return {
-                ...item, // copy the existing item
-                title: payload.title, // replace the email addr
-              };
-            }
+      return { ...state, books: [...state.books, payload], loading: false };
+    // return {
+    //   ...state,
+    //   books: [
+    //     state.books.map((item, index) => {
+    //       // Find the item with the matching id
+    //       if (item.id === payload.id) {
+    //         // Return a new object
+    //         return {
+    //           ...item, // copy the existing item
+    //           title: payload.title, // replace the email addr
+    //         };
+    //       }
 
-            // Leave every other item unchanged
-            return item;
-          }),
-        ],
-        loading: false,
-      };
+    //       // Leave every other item unchanged
+    //       return item;
+    //     }),
+    //   ],
+    //   loading: false,
+    // };
 
     default:
       return state;
