@@ -4,7 +4,7 @@
 
 The app allows you to add and remove books from your collection. Features to edit, comment and update reading progress.
 
-![Merlinbook](https://i.imgur.com/9v0Lvxu.png)]
+![Merlinbook](https://i.imgur.com/9v0Lvxu.png)
 
 ```bash
 # Install dependencies
