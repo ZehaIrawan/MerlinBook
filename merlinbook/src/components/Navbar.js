@@ -10,9 +10,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <Link to="/books">
         <h2>Books</h2>
       </Link>
-      <Link to="/register">
-        <h2>Register</h2>
-      </Link>
 
       <Link to="/login">
         <h2 onClick={logout}>Logout</h2>
@@ -30,9 +27,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <nav>
       <Link to="/register">
-        <h2>Register</h2>
+        <h2 className="title-nav">Register</h2>
       </Link>
-      <Link to="/login">
+      <Link className="title-nav" to="/login">
         <h2>Login</h2>
       </Link>
       <div>
