@@ -28,7 +28,7 @@ const App = () => {
         <Fragment>
           <Alert />
           <Switch>
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/" component={Register} />
             <PrivateRoutes exact path="/books" component={memberBooks} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
