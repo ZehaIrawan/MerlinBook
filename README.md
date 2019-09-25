@@ -6,7 +6,7 @@ The app allows you to add and remove books from your collection. Features to edi
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3932e3b3-0bf5-4d46-894b-4bed5f52e5b8/deploy-status)](https://app.netlify.com/sites/reverent-lewin-97360b/deploys)
 
-![Merlinbook](https://i.imgur.com/9v0Lvxu.png)
+![Merlinbook](https://i.imgur.com/TocUlkV.png)
 
 ```bash
 # Install dependencies
