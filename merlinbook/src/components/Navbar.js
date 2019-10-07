@@ -8,7 +8,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <nav>
       <Link to="/books">
-        <h2>Books</h2>
+        <h2>Bookss</h2>
       </Link>
 
       <Link to="/login">
